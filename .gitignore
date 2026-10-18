@@ -1,6 +1,10 @@
 # Dependencies
 node_modules
 
+# Local helper (exact remote URL scratch)
+.github-remote-url.txt
+
+
 # Build
 dist
 dist-ssr
