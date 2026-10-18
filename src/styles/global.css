@@ -1,0 +1,365 @@
+:root {
+  color-scheme: light dark;
+  --bg: #f7f5f2;
+  --fg: #1a1a1a;
+  --muted: #5c5c5c;
+  --link: #0b5fff;
+  --header-bg: #efebe6;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  line-height: 1.5;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #141414;
+    --fg: #f0f0f0;
+    --muted: #a0a0a0;
+    --link: #8cb4ff;
+    --header-bg: #1e1e1e;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+}
+
+a {
+  color: var(--link);
+}
+
+.app-header {
+  padding: 0.75rem 1rem;
+  background: var(--header-bg);
+  border-bottom: 1px solid color-mix(in srgb, var(--fg) 12%, transparent);
+}
+
+.app-brand {
+  font-weight: 700;
+  text-decoration: none;
+  color: var(--fg);
+}
+
+.app-main {
+  max-width: 42rem;
+  margin: 0 auto;
+  padding: 1.25rem 1rem 3rem;
+}
+
+.song-page {
+  max-width: 72rem;
+  margin: 0 auto;
+}
+
+.app-main:has(.song-page) {
+  max-width: 72rem;
+}
+
+.song-page h1 {
+  margin-bottom: 0.25rem;
+  font-size: clamp(1.35rem, 4vw, 1.75rem);
+  line-height: 1.2;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+code {
+  font-family: ui-monospace, Consolas, monospace;
+}
+
+.song-list {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0 0;
+}
+
+.song-list li {
+  border-bottom: 1px solid color-mix(in srgb, var(--fg) 12%, transparent);
+}
+
+.song-list a {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  padding: 0.85rem 0;
+  text-decoration: none;
+  color: inherit;
+}
+
+.song-list-title {
+  font-weight: 600;
+}
+
+.song-list-artist {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.song-meta {
+  color: var(--muted);
+  margin-top: -0.35rem;
+}
+
+.transpose-bar {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  margin: 1rem 0 0.25rem;
+  padding: 0.75rem 0.85rem;
+  background: color-mix(in srgb, var(--bg) 92%, var(--header-bg));
+  border: 1px solid color-mix(in srgb, var(--fg) 12%, transparent);
+  border-radius: 8px;
+  backdrop-filter: blur(6px);
+}
+
+.transpose-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.transpose-btn,
+.transpose-reset {
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  padding: 0 0.85rem;
+  border: 1px solid color-mix(in srgb, var(--fg) 22%, transparent);
+  border-radius: 8px;
+  background: var(--header-bg);
+  color: var(--fg);
+  font: inherit;
+  font-size: 1.25rem;
+  font-weight: 700;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.transpose-reset {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.transpose-btn:active,
+.transpose-reset:active {
+  transform: scale(0.97);
+}
+
+.transpose-reset:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.transpose-steps {
+  min-width: 2.5rem;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+}
+
+.transpose-key {
+  margin: 0.55rem 0 0;
+  font-size: 0.95rem;
+}
+
+
+.song-section {
+  margin: 1.4rem 0 0.65rem;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.song-empty-line {
+  height: 0.75rem;
+}
+
+.chord-lyric-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  margin: 0.15rem 0;
+}
+
+.chord-lyric-seg {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  white-space: pre;
+}
+
+.chord-name {
+  min-height: 1.15em;
+  font-weight: 700;
+  color: var(--link);
+  line-height: 1.15;
+}
+
+.song-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(16rem, 20rem);
+  gap: 1.5rem;
+  align-items: start;
+  margin-top: 1rem;
+}
+
+.song-lyrics {
+  min-width: 0;
+  font-family: ui-monospace, Consolas, monospace;
+  font-size: clamp(0.92rem, 2.8vw, 1.05rem);
+  line-height: 1.35;
+  overflow-x: auto;
+}
+
+.chord-diagram-panel {
+  position: sticky;
+  top: 0.5rem;
+  padding: 0.75rem;
+  border: 1px solid color-mix(in srgb, var(--fg) 12%, transparent);
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--bg) 92%, var(--header-bg));
+}
+
+.chord-diagram-panel-title {
+  margin: 0 0 0.65rem;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.chord-diagram-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.65rem 0.5rem;
+}
+
+.chord-diagram-card {
+  text-align: center;
+}
+
+.chord-diagram-card-label {
+  font-family: ui-monospace, Consolas, monospace;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--link);
+}
+
+.chord-variation-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  margin-top: 0.15rem;
+}
+
+.chord-variation-btn {
+  width: 1.75rem;
+  height: 1.5rem;
+  padding: 0;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--fg);
+  font-size: 1.2rem;
+  line-height: 1;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.chord-variation-btn:disabled {
+  opacity: 0.25;
+  cursor: default;
+}
+
+.chord-variation-meta {
+  min-width: 1.75rem;
+  font-size: 0.75rem;
+  color: var(--muted);
+  text-align: center;
+}
+
+.chord-diagram-missing {
+  margin: 0.75rem 0;
+  font-size: 0.8rem;
+}
+
+.chord-diagram {
+  display: block;
+  width: 100%;
+  max-width: 8.5rem;
+  height: auto;
+  margin: 0.15rem auto 0;
+}
+
+@media (max-width: 860px) {
+  .song-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .chord-diagram-panel {
+    position: static;
+    order: -1;
+  }
+}
+
+.chord-diagram-line {
+  stroke: color-mix(in srgb, var(--fg) 55%, transparent);
+  stroke-width: 1.25;
+}
+
+.chord-diagram-nut {
+  stroke: var(--fg);
+}
+
+.chord-diagram-base {
+  fill: var(--muted);
+  font-size: 12px;
+  text-anchor: end;
+}
+
+.chord-diagram-mark {
+  fill: var(--fg);
+  font-size: 14px;
+  text-anchor: middle;
+}
+
+.chord-diagram-open {
+  fill: none;
+  stroke: var(--fg);
+  stroke-width: 1.5;
+}
+
+.chord-diagram-dot,
+.chord-diagram-barre {
+  fill: var(--link);
+  stroke: var(--link);
+}
+
+.chord-diagram-finger {
+  fill: var(--bg);
+  font-size: 11px;
+  font-weight: 700;
+  text-anchor: middle;
+}
+
+.lyric-text,
+.lyric-line {
+  white-space: pre-wrap;
+}
+
+.lyric-only {
+  margin: 0.15rem 0;
+}
