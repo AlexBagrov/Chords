@@ -350,5 +350,4 @@ formatChord(chord: Chord): string                     // обратно в "G/F#
 
 ## Следующий шаг
 
-Локальный коммит готов; **push на GitHub** — после доступа к репо `AlexPoprov/Chords`.  
-Затем: Settings → Pages → Source: GitHub Actions → проверка https://alexpoprov.github.io/Chords/
+Репо: `AlexPoprov/Chords`. После push: Settings → Pages → Source: GitHub Actions → https://alexpoprov.github.io/Chords/
