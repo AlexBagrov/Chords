@@ -27,7 +27,7 @@ npm run lint     # ESLint
 
 После push в `main` Action **Deploy to GitHub Pages** публикует сайт:
 
-**https://alexpoprov.github.io/Chords/**
+**https://alexbagrov.github.io/Chords/**
 
 Один раз в настройках репо: **Settings → Pages → Source: GitHub Actions**.
 
@@ -39,7 +39,7 @@ npm run lint     # ESLint
 
 ### На Android (рекомендуется через Pages)
 
-1. Открой https://alexpoprov.github.io/Chords/ в Chrome
+1. Открой https://alexbagrov.github.io/Chords/ в Chrome
 2. Меню → **Установить приложение** / **На главный экран**
 3. Открой ярлык без сети — песни уже в кэше
 

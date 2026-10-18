@@ -335,7 +335,7 @@ formatChord(chord: Chord): string                     // обратно в "G/F#
 | Стили на старте | обычный CSS | 2026-10-18 |
 | Платформа | Android + desktop; iOS не приоритет | 2026-10-18 |
 | Запуск | Локально — приоритет (офлайн); деплой — доп. канал обновлений | 2026-10-18 |
-| Деплой | GitHub Pages + Actions (`https://github.com/AlexPoprov/Chords`) | 2026-10-18 |
+| Деплой | GitHub Pages + Actions (`https://github.com/AlexBagrov/Chords`) | 2026-10-18 |
 | Источник песен | Ручной перенос из UG My Tabs в `songs/` | 2026-10-18 |
 | Формат песен | Упрощённый ChordPro: `{meta}`, `{comment}`, `[Chord]текст` | 2026-10-18 |
 | Эталон контента | Life Is Real — Queen (`life-is-real.chordpro`) | 2026-10-18 |
@@ -350,4 +350,4 @@ formatChord(chord: Chord): string                     // обратно в "G/F#
 
 ## Следующий шаг
 
-Репо: https://github.com/AlexPoprov/Chords — после push: Settings → Pages → GitHub Actions → https://alexpoprov.github.io/Chords/
+Репо: https://github.com/AlexBagrov/Chords — после push: Settings → Pages → GitHub Actions → https://alexbagrov.github.io/Chords/
