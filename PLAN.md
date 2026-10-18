@@ -350,5 +350,5 @@ formatChord(chord: Chord): string                     // обратно в "G/F#
 
 ## Следующий шаг
 
-Шаблон и чеклист готовы. **Ждём следующие песни** от заказчика (текст с UG в чат или файлы).  
-Далее по желанию: поиск / избранное / деплой на Android.
+Локальный коммит готов; **push на GitHub** — после доступа к репо `AlexPoprov/Chords`.  
+Затем: Settings → Pages → Source: GitHub Actions → проверка https://alexpoprov.github.io/Chords/
