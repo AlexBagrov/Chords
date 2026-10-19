@@ -2,12 +2,20 @@ export type ChordproMeta = {
   title: string
   artist: string
   key?: string
+  /** Лад каподастра; формы аккордов в файле — относительно капо. */
+  capo?: number
 }
 
 const META_LINE =
   /^\s*\{([a-zA-Z_]+)\s*:\s*([^}]*)\}\s*$/
 
-/** Достаёт {title}, {artist}, {key} из текста ChordPro. */
+function parseCapoFret(value: string): number | undefined {
+  const n = Number.parseInt(value.trim(), 10)
+  if (!Number.isFinite(n) || n < 1 || n > 12) return undefined
+  return n
+}
+
+/** Достаёт {title}, {artist}, {key}, {capo} из текста ChordPro. */
 export function parseChordproMeta(
   source: string,
   fallbackTitle: string,
@@ -30,12 +38,14 @@ export function parseChordproMeta(
     if (key === 'title') meta.title = value
     if (key === 'artist') meta.artist = value
     if (key === 'key') meta.key = value
+    if (key === 'capo') meta.capo = parseCapoFret(value)
   }
 
   return {
     title: meta.title || fallbackTitle,
     artist: meta.artist || 'Unknown',
     key: meta.key,
+    capo: meta.capo,
   }
 }
 
@@ -45,7 +55,13 @@ export function chordproBodyForPreview(source: string): string {
     .split(/\r?\n/)
     .filter((line) => {
       const t = line.trim()
-      if (t.startsWith('{#') || t.startsWith('{title') || t.startsWith('{artist') || t.startsWith('{key')) {
+      if (
+        t.startsWith('{#') ||
+        t.startsWith('{title') ||
+        t.startsWith('{artist') ||
+        t.startsWith('{key') ||
+        t.startsWith('{capo')
+      ) {
         return false
       }
       return true

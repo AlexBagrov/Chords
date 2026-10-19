@@ -1,4 +1,5 @@
 import { Link } from 'react-router'
+import CapoBadge from '../components/CapoBadge'
 import { songs } from '../lib/songCatalog'
 
 export default function SongListPage() {
@@ -12,7 +13,10 @@ export default function SongListPage() {
           {songs.map((song) => (
             <li key={song.id}>
               <Link to={`/songs/${song.id}`}>
-                <span className="song-list-title">{song.title}</span>
+                <span className="song-list-title">
+                  {song.title}
+                  {song.capo ? <CapoBadge fret={song.capo} className="capo-badge--inline" /> : null}
+                </span>
                 <span className="song-list-artist">{song.artist}</span>
               </Link>
             </li>

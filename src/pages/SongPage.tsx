@@ -54,6 +54,7 @@ export default function SongPage() {
         steps={steps}
         originalKey={originalKey}
         currentKey={currentKey}
+        capo={baseAst.meta.capo}
         onStepsChange={setSteps}
       />
 

@@ -19,6 +19,14 @@ npm run lint     # ESLint
 
 После `npm run dev` открой адрес, который покажет Vite (обычно http://localhost:5173).
 
+### Ярлык на ПК (без git)
+
+Актуальная версия с диска — двойной клик по ярлыку **Chords** на рабочем столе  
+(или `scripts\start-local.bat`). Поднимает `npm run start:local` и открывает браузер.  
+Коммит и Pages для этого не нужны. Телефон по-прежнему обновляется после push.
+
+Пересоздать ярлык: `powershell -File scripts\create-desktop-shortcut.ps1`
+
 ## Добавить песню
 
 Краткий чеклист и шаблон: [songs/README.md](./songs/README.md), файл `songs/templates/template.chordpro`.

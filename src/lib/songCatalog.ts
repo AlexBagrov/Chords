@@ -5,6 +5,7 @@ export type SongSummary = {
   title: string
   artist: string
   key?: string
+  capo?: number
   source: string
 }
 
@@ -29,6 +30,7 @@ function loadSongs(): SongSummary[] {
         title: meta.title,
         artist: meta.artist,
         key: meta.key,
+        capo: meta.capo,
         source,
       }
     })

@@ -11,8 +11,8 @@
 ## Цели
 
 - [x] Просмотр своих песен: текст + аккорды (+ схемы справа)
-- [x] Транспонирование (± полутоны); капо — позже по желанию
-- [ ] Офлайн на ПК проверен заказчиком; Android — после деплоя
+- [x] Транспонирование (± полутоны); пометка капо `{capo: N}` (значок + лад)
+- [ ] Офлайн на ПК / Android проверен заказчиком (сайт уже на Pages)
 - [x] Контент только свой (ручной перенос), без парсеров UG
 
 ---
@@ -84,7 +84,7 @@ Chords/
 ### 1. Формат песен и данные
 
 - [x] Выбрать и зафиксировать формат (предпочтительно ChordPro / упрощённый ChordPro)
-- [x] Схема метаданных: title, artist, key (tags/capo — позже по необходимости)
+- [x] Схема метаданных: title, artist, key, capo (опционально)
 - [x] Пример 1–2 песен в `songs/` — `life-is-real.chordpro` (Queen) + raw UG
 - [x] Загрузка списка песен при сборке (`import.meta.glob` + `songCatalog.ts`)
 
@@ -226,7 +226,7 @@ formatChord(chord: Chord): string                     // обратно в "G/F#
 - [x] Список песен (поиск — позже по мере надобности)
 - [x] Страница песни: аккорды над текстом, читаемый мобильный вид
 - [x] Контролы: транспонирование (+/−), сброс
-- [x] Отображение текущей тональности (из `{key}`); капо — позже
+- [x] Отображение текущей тональности (из `{key}`) и капо (значок + лад)
 
 #### 3. Декомпозиция
 
@@ -239,7 +239,7 @@ formatChord(chord: Chord): string                     // обратно в "G/F#
 
 - [x] `vite-plugin-pwa`: манифест, иконки, Service Worker
 - [x] Кэш shell + ассетов (песни уже в JS-бандле через `import.meta.glob`)
-- [ ] Проверка заказчиком: Offline в Chrome на ПК; Android — позже
+- [ ] Проверка заказчиком: Offline в Chrome на ПК; установка с https://alexbagrov.github.io/Chords/ на Android
 - [x] iOS не в приоритете (заказчик: Android)
 
 #### 4. Декомпозиция
@@ -338,16 +338,20 @@ formatChord(chord: Chord): string                     // обратно в "G/F#
 | Деплой | GitHub Pages + Actions (`https://github.com/AlexBagrov/Chords`) | 2026-10-18 |
 | Источник песен | Ручной перенос из UG My Tabs в `songs/` | 2026-10-18 |
 | Формат песен | Упрощённый ChordPro: `{meta}`, `{comment}`, `[Chord]текст` | 2026-10-18 |
+| Капо | `{capo: N}` — формы относительно капо; UI: значок + лад | 2026-10-19 |
 | Эталон контента | Life Is Real — Queen (`life-is-real.chordpro`) | 2026-10-18 |
 | Загрузка песен | `import.meta.glob('../../songs/*.chordpro', raw)` | 2026-10-18 |
 | Диаграммы аккордов | chords-db + SVG; панель справа 2 колонки; слэши без упрощения (`G/F#` → `/F#`) | 2026-10-18 |
 | Рендер аккордов | Над текстом (как UG) | 2026-10-18 |
 | UI транспонирования | Sticky ± / сброс / текущая тональность | 2026-10-18 |
 | PWA | vite-plugin-pwa, autoUpdate, иконки в `public/icons` | 2026-10-18 |
+| Запуск на ПК | Ярлык → `scripts/start-local.bat` (`vite --open`), без git | 2026-10-19 |
 | Где хранить песни | `songs/*.chordpro`; raw UG в `songs/raw/` | 2026-10-18 |
 
 ---
 
 ## Следующий шаг
 
-Репо: https://github.com/AlexBagrov/Chords — после push: Settings → Pages → GitHub Actions → https://alexbagrov.github.io/Chords/
+Деплой готов: https://alexbagrov.github.io/Chords/  
+На ПК: ярлык **Chords** / `scripts/start-local.bat`.  
+Дальше: **новые песни** и проверка офлайна на Android; этап 5 — по боли.

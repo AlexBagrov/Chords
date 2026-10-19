@@ -21,6 +21,7 @@ describe('parseChordpro', () => {
       title: 'Life Is Real',
       artist: 'Queen',
       key: 'G',
+      capo: undefined,
     })
 
     expect(ast.blocks[0]).toEqual({ type: 'section', name: 'Verse 1' })

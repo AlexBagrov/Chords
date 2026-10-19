@@ -20,6 +20,7 @@ export type SongAst = {
     title: string
     artist: string
     key?: string
+    capo?: number
   }
   blocks: SongBlock[]
 }
@@ -74,7 +75,7 @@ export function parseChordpro(source: string): SongAst {
       const key = (colon === -1 ? body : body.slice(0, colon)).trim().toLowerCase()
       const value = colon === -1 ? '' : body.slice(colon + 1).trim()
 
-      if (key === 'title' || key === 'artist' || key === 'key') {
+      if (key === 'title' || key === 'artist' || key === 'key' || key === 'capo') {
         continue
       }
       if (key === 'comment') {

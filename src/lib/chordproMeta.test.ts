@@ -9,12 +9,28 @@ const SAMPLE = `{title: Life Is Real}
 [G]Guilt stains
 `
 
+const WITH_CAPO = `{title: Hammer to Fall}
+{artist: Queen}
+{key: A}
+{capo: 3}
+`
+
 describe('parseChordproMeta', () => {
   it('reads title, artist, key', () => {
     expect(parseChordproMeta(SAMPLE, 'fallback')).toEqual({
       title: 'Life Is Real',
       artist: 'Queen',
       key: 'G',
+      capo: undefined,
+    })
+  })
+
+  it('reads capo fret', () => {
+    expect(parseChordproMeta(WITH_CAPO, 'fallback')).toEqual({
+      title: 'Hammer to Fall',
+      artist: 'Queen',
+      key: 'A',
+      capo: 3,
     })
   })
 
@@ -23,6 +39,7 @@ describe('parseChordproMeta', () => {
       title: 'life-is-real',
       artist: 'Unknown',
       key: undefined,
+      capo: undefined,
     })
   })
 })

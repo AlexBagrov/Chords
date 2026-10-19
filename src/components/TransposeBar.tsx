@@ -1,9 +1,11 @@
 import { formatTransposeSteps } from '../lib/chords'
+import CapoBadge from './CapoBadge'
 
 type TransposeBarProps = {
   steps: number
   originalKey?: string
   currentKey?: string
+  capo?: number
   onStepsChange: (steps: number) => void
 }
 
@@ -11,6 +13,7 @@ export default function TransposeBar({
   steps,
   originalKey,
   currentKey,
+  capo,
   onStepsChange,
 }: TransposeBarProps) {
   return (
@@ -50,9 +53,23 @@ export default function TransposeBar({
           {steps !== 0 && originalKey ? (
             <span className="muted"> (было {originalKey})</span>
           ) : null}
+          {capo ? (
+            <>
+              {' '}
+              <CapoBadge fret={capo} />
+            </>
+          ) : null}
         </p>
       ) : (
-        <p className="transpose-key muted">Сдвиг относительно исходных аккордов</p>
+        <p className="transpose-key muted">
+          Сдвиг относительно исходных аккордов
+          {capo ? (
+            <>
+              {' '}
+              <CapoBadge fret={capo} />
+            </>
+          ) : null}
+        </p>
       )}
     </div>
   )

@@ -107,6 +107,39 @@ code {
   margin-top: -0.35rem;
 }
 
+.capo-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.28rem;
+  vertical-align: middle;
+  margin-left: 0.35rem;
+  padding: 0.12rem 0.42rem 0.12rem 0.32rem;
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--fg) 10%, transparent);
+  color: var(--fg);
+  font-size: 0.9rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.2;
+}
+
+.capo-badge--inline {
+  margin-left: 0.45rem;
+  font-size: 0.85rem;
+}
+
+.capo-badge-icon {
+  display: block;
+  flex-shrink: 0;
+  width: 1.28em;
+  height: 1.28em;
+}
+
+.capo-badge-fret {
+  min-width: 0.75em;
+  text-align: center;
+}
+
 .transpose-bar {
   position: sticky;
   top: 0;
