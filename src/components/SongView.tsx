@@ -1,14 +1,10 @@
-import { formatChord, type Chord } from '../lib/chords'
+import { formatChord } from '../lib/chords'
+import { buildChordLyricSegments } from '../lib/chordLyricSegments'
 import type { InlinePart, SongAst, SongBlock } from '../lib/chordproParse'
 import ChordDiagramPanel from './ChordDiagramPanel'
 
 type SongViewProps = {
   song: SongAst
-}
-
-type Segment = {
-  chord: Chord | null
-  lyric: string
 }
 
 function ChordLyricLine({ parts }: { parts: InlinePart[] }) {
@@ -19,38 +15,19 @@ function ChordLyricLine({ parts }: { parts: InlinePart[] }) {
     return <div className="lyric-line lyric-only">{text || '\u00a0'}</div>
   }
 
-  const segments: Segment[] = []
-  let pendingChord: Chord | null = null
-
-  for (const part of parts) {
-    if (part.type === 'chord') {
-      if (pendingChord) {
-        segments.push({ chord: pendingChord, lyric: '' })
-      }
-      pendingChord = part.chord
-      continue
-    }
-
-    if (pendingChord) {
-      segments.push({ chord: pendingChord, lyric: part.text })
-      pendingChord = null
-    } else if (segments.length === 0) {
-      segments.push({ chord: null, lyric: part.text })
-    } else {
-      segments[segments.length - 1].lyric += part.text
-    }
-  }
-
-  if (pendingChord) {
-    segments.push({ chord: pendingChord, lyric: '' })
-  }
+  const segments = buildChordLyricSegments(parts)
 
   return (
     <div className="chord-lyric-line">
       {segments.map((segment, index) => (
         <span
           className="chord-lyric-seg"
-          key={`${index}-${segment.chord ? formatChord(segment.chord) : ''}-${segment.lyric}`}
+          key={`${index}-${segment.chord ? formatChord(segment.chord) : ''}-${segment.lyric}-${segment.padAfter}`}
+          style={
+            segment.padAfter > 0
+              ? { marginRight: `${segment.padAfter * 0.7}ch` }
+              : undefined
+          }
         >
           <span className="chord-name">
             {segment.chord ? formatChord(segment.chord) : '\u00a0'}

@@ -1,0 +1,88 @@
+# Исходный копипаст (аккорды над текстом). (Everything I Do) I Do It For You — Bryan Adams.
+# Таб соло — здесь; в .chordpro — аккорды.
+
+[Intro]
+D A G A
+
+[Verse]
+D                   A
+Look into my eyes, you will see
+G                A
+What you mean to me
+            D                  A
+Search your heart, search your soul
+              G                     D         A
+And when you find me there you'll search no more
+
+[Chorus]
+      Em                     D      Em
+Don't tell me it's not worth tryin' for
+                                 D     Em
+You can't tell me it's not worth dyin' for
+              D
+You know it's true
+             A               D
+Everything I do, I do it for you
+
+[Verse]
+D                     A
+Look into your heart, you will find
+        G                A
+There's nothin' there to hide
+             D           A
+Take me as I am, take my life
+        G                    D    A
+I would give it all, I would sacrifice
+
+[Chorus]
+      Em                     D        Em
+Don't tell me it's not worth fighting for
+                                D      Em
+I can't help it there's nothing I want more
+              D
+You know it's true
+             A            D
+Everything I do, I do it for you
+
+[Bridge]
+        C            F
+There's no love, like your love
+       C                G
+And no other, could give more love
+        D               A
+There's nowhere, unless you're there
+        E             A
+All the time, all the way
+
+[Solo]
+    G                                  D
+e|----------------------------------|-------------------------|
+B|----------------------------------|--------------9-9--------|
+G|--8h10vvvv----/10-8-6-------------|----6-6---/10------------|
+D|----------------------8/11-/13vv--|--8---------------11-11--|
+A|----------------------------------|-------------------------|
+E|----------------------------------|-------------------------|
+
+    G                                             D
+e|---------------9-----------------------------|---------------|
+B|--9/11-11vv------11-11vv-----11p9-11---------|---------------|
+G|-------------------------------------8/10vv--|--8-8-8^--6vv--|
+D|---------------------------------------------|---------------|
+A|---------------------------------------------|---------------|
+E|---------------------------------------------|---------------|
+
+[Chorus]
+              Em                            A
+Oh, you can't tell me it's not worth tryin' for
+        Em                              A    G
+I can't help it, there's nothin' I want more
+              D                  A
+Yeah, I would fight for you, I'd lie for you
+         G                      Gm
+Walk the wire for you, yeah I'd die for you
+
+[Outro]
+              D
+You know it's true
+             A    G  Em           D
+Everything I do, oh,     I do it for you...

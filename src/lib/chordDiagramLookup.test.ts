@@ -1,10 +1,12 @@
 import { describe, expect, it } from 'vitest'
-import { parseChord } from './chords'
+import { formatChord, parseChord } from './chords'
 import {
   chordToDbSuffix,
   lookupChordDiagram,
   qualityToSuffix,
 } from './chordDiagramLookup'
+import { parseChordpro } from './chordproParse'
+import { collectUniqueChords } from './songChords'
 
 describe('qualityToSuffix', () => {
   it('maps common qualities', () => {
@@ -72,5 +74,58 @@ describe('lookupChordDiagram', () => {
       expect(match, token).toBeTruthy()
     }
     expect(lookupChordDiagram(parseChord('Gsus'))!.suffix).toBe('sus4')
+  })
+
+  it('uses local overrides when chords-db has no shape', () => {
+    const missingFromDb = [
+      'E/A',
+      'D/C#',
+      'D/G',
+      'F#/A#',
+      'D7/A',
+      'D7/F#',
+      'E7/G#',
+      'Em7/G',
+      'F#7/C#',
+      'F#m7/E',
+      'G7/B',
+      'Edim/A#',
+      'A5',
+      'B5',
+      'C5',
+      'D5',
+      'E5',
+      'G5',
+    ]
+    for (const token of missingFromDb) {
+      const match = lookupChordDiagram(parseChord(token))
+      expect(match, token).toBeTruthy()
+      expect(match!.suffix).toBe('override')
+      expect(match!.positions[0].frets).toHaveLength(6)
+    }
+    // E/A — форма из таба Hammer to Fall (x06454 → base 4)
+    expect(lookupChordDiagram(parseChord('E/A'))!.positions[0]).toMatchObject({
+      frets: [-1, 0, 3, 1, 2, 1],
+      baseFret: 4,
+    })
+  })
+
+  it('every chord in songs/*.chordpro has a diagram', () => {
+    const modules = import.meta.glob('../../songs/*.chordpro', {
+      query: '?raw',
+      import: 'default',
+      eager: true,
+    }) as Record<string, string>
+
+    const missing = new Set<string>()
+    for (const source of Object.values(modules)) {
+      const ast = parseChordpro(source)
+      for (const chord of collectUniqueChords(ast, { diagramsOnly: true })) {
+        if (!lookupChordDiagram(chord)) {
+          missing.add(formatChord(chord))
+        }
+      }
+    }
+    expect([...missing].sort()).toEqual([])
   })
 })

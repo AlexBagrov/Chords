@@ -1,5 +1,6 @@
 import guitarDb from '@tombatossals/chords-db/lib/guitar.json'
 import { formatChord, type Chord } from './chords'
+import { lookupChordDiagramOverride } from './chordDiagramOverrides'
 
 /** Сколько вариаций аппликатуры показываем (стрелками). */
 export const MAX_CHORD_VARIATIONS = 2
@@ -154,6 +155,18 @@ export function lookupChordDiagram(chord: Chord): ChordDiagramMatch | null {
   }
 
   const pitch = pitchName(chord.root, chord.accidental)
+  const label = formatChord(chord)
+
+  const override = lookupChordDiagramOverride(label)
+  if (override) {
+    return {
+      label,
+      lookupKey: pitch,
+      suffix: 'override',
+      positions: override.slice(0, MAX_CHORD_VARIATIONS).map(normalizePosition),
+    }
+  }
+
   const dbKey = KEY_TO_DB[pitch]
   const suffix = chordToDbSuffix(chord)
   if (!dbKey || !suffix) {
@@ -170,7 +183,7 @@ export function lookupChordDiagram(chord: Chord): ChordDiagramMatch | null {
     .map(normalizePosition)
 
   return {
-    label: formatChord(chord),
+    label,
     lookupKey: pitch,
     suffix,
     positions,
