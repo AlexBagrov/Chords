@@ -1,0 +1,125 @@
+# Исходный копипаст (аккорды над текстом). The Zoo — Scorpions. Standard Tuning.
+# Табы riff — здесь; в .chordpro — аккорды.
+
+[Intro]
+| E5      E5 D5 E5 | C5 B5 C5 E5  D5  |
+| E5      E5 D5 E5 | C5 B5 C5 D5      |
+| E5      E5 D5 E5 | C5 B5 C5 E5  D5  |
+| E5      E5 D5 E5 | C5 B5 C5 D5      |
+
+| E5   | E5   | E5   |
+
+[Riff] (play x2)
+
+e|--------------------------|--------------------------|--------------------------
+B|--------------------------|--------------------------|--------------------------
+G|--------------------------|--------------------------|--------------------------
+D|-------------------10--9--|-------------------10--9--|-------------------10--9--
+A|-------------------12--10-|-------------------12--10-|-------------------12--10-
+E|-0---0-0---0-0---0--------|-0---0-0---0-0---0--------|-0---0-0---0-0---0--------
+   P.M.-------------|         P.M.-------------|         P.M.-------------|
+|--------------------------|
+|--------------------------|
+|--------------------------|
+|-----7-----5-----7-----9--|
+|-----9-----7-----9-----10-|
+|-0-----0-----0-----0------|
+  PM    PM    PM    PM
+
+e|--------------------------|--------------------------|--------------------------
+B|--------------------------|--------------------------|--------------------------
+G|--------------------------|--------------------------|--------------------------
+D|-------------------10--9--|-------------------10--9--|-------------------10--9--
+A|-------------------12--10-|-------------------12--10-|-------------------12--10-
+E|-0---0-0---0-0---0--------|-0---0-0---0-0---0--------|-0---0-0---0-0---0--------
+   P.M.-------------|         P.M.-------------|         P.M.-------------|
+|-------------------------|
+|-------------------------|
+|-------------------------|
+|-----7-----5-----7-----5-|
+|-----9-----7-----9-----7-|
+|-0-----0-----0-----0-----|
+  PM    PM    PM    PM
+
+[Verse 1]
+E5
+The job is done and I go out
+E5
+Another boring day
+E5
+I leave it all behind me now
+   C5              E5
+So many worlds away
+
+Repeat Riff (x1 only)
+
+[Verse 2]
+E5
+I meet my girl, she's dressed to kill
+E5
+And all we gonna do
+E5
+Is walk around to catch the thrill
+   C5                     E5
+On streets we call the zoo
+
+[Chorus]
+   G       D         Em        C
+We eat the night, we drink the time
+G        D           Em
+Make our dreams come true
+    G      D        Em      C
+And hungry eyes are passing by
+   B          D        Em
+On streets we call the zoo
+
+   G       D         Em        C
+We eat the night, we drink the time
+G        D           Em
+Make our dreams come true
+    G      D        Em      C
+And hungry eyes are passing by
+   B          D        Em
+On streets we call the zoo
+
+[Bridge]
+A5 C5 x4
+
+[Solo]
+Over Riff x1
+
+[Verse 3]
+E5
+Enjoy the zoo and walk down
+E5
+42nd Street
+E5
+You gonna be excited too
+    C5                    E5
+And you will feel the heat
+
+[Chorus]
+   G       D         Em        C
+We eat the night, we drink the time
+G        D           Em
+Make our dreams come true
+    G      D        Em      C
+And hungry eyes are passing by
+   B          D        Em
+On streets we call the zoo
+
+   G       D         Em        C
+We eat the night, we drink the time
+G        D           Em
+Make our dreams come true
+    G      D        Em      C
+And hungry eyes are passing by
+   B          D        Em
+On streets we call the zoo
+
+[Bridge]
+A5 C5 x4
+
+[Outro Solo]
+Over Riff x4
+(begin fade 3rd time)

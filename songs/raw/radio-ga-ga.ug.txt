@@ -1,0 +1,137 @@
+# Исходный копипаст (аккорды над текстом). Radio Ga Ga — Queen. Capo 1.
+# Альбом: The Works
+#
+# C#dim/G    3-x-2-0-2-0 or 3-x-5-6-5-x
+# Bbdim      x-1-2-3-2-x
+# Bsus4      x-2-4-4-5-2
+
+[Intro]
+| G | % | Am | % |
+| C | % | Am | C G | G |
+
+| G | % | Am | % |
+| C | % | Am | C G | C6 G |
+                      Radio
+
+[Verse 1]
+    G
+I'd sit alone, and watch your light
+   Am
+My only friend, through teenage nights
+    C
+And everything, I had to know
+  Am            C   G
+I heard it on my radio
+
+[Verse 2]
+    G
+You gave them all, those old time stars
+        Am
+Through wars of worlds, invaded by Mars
+    C
+You made 'em laugh, you made 'em cry
+    Am               C        G
+You made us feel like we could fly
+C6  G
+Radio
+
+[Pre-Chorus]
+   G
+So don't become, some background noise
+  Edim/A#
+A backdrop for the girls and boys
+    C
+Who just don't know, or just don't care
+    Dbdim
+And just complain, when you're not there
+   G/D
+You had your time, you had the power
+       D7sus4 D7         D7sus4 D7
+You've yet to have, your finest hour
+C   G  C6  G
+Radio  Radio
+
+[Chorus]
+Fsus2           C     G
+All we hear is, radio ga ga,
+C     G        C     G
+Radio goo goo, radio ga ga
+Fsus2           C     G
+All we hear is, radio ga ga
+C     G
+Radio blah blah
+F            C    D
+Radio what's new
+Em    G/D D   C     D     G
+Radio, someone still loves you
+
+[Interlude]
+| G | % | % | % |
+
+[Verse 3]
+   G
+We watch the shows, we watch the stars
+   Am
+On videos, for hours and hours
+   C
+We hardly need to use our ears
+    Am           C           G
+How music changes through the years
+
+[Pre-Chorus]
+      G
+Let's hope you never, leave old friend
+     Edim/A#
+Like all good things, on you we depend
+   C
+So stick around, cause we might miss you
+     Dbdim
+When we grow tired, of all this visual
+    G/D
+You had your time, you had the power
+       D7sus4 D7         D7sus4 D7
+You've yet to have, your finest hour
+C   G  C6  G
+Radio  Radio
+
+[Chorus]
+N.C.
+All we hear is radio ga ga
+N.C.
+Radio goo goo, radio ga ga
+N.C.
+All we hear is radio ga ga
+N.C.
+Radio goo goo, radio ga ga
+Fsus2          C     G
+All we hear is radio ga ga
+C     G
+Radio blah blah
+F         C       D
+Radio what's new?
+Em    G/D D   C     D     G
+Radio, someone still loves you
+
+[Interlude]
+| G | % | % | % |
+| G | % | % | % | % |
+
+[Instrumental]
+| G | % | Am | % |
+| C | % | Am | C G | G |
+| G | % | Edim/A# | % |
+| C | % | Dbdim | % |
+
+[Bridge]
+    G/D
+You had your time, you had the power
+       D7sus4                    D
+You've yet to have, your finest hour
+C   G  C6  G
+Radio  Radio
+
+[Outro]
+| G | % | Edim/A# | % |
+| C | % | Dbdim | % |
+| G/D | % | D7sus4 | D7sus4  D |
+(fade out)
