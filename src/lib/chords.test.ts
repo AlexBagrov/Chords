@@ -2,7 +2,9 @@ import { describe, expect, it } from 'vitest'
 import {
   formatChord,
   formatTransposeSteps,
+  normalizeQuality,
   parseChord,
+  stripChordSpaces,
   transposeChord,
   transposeKeyLabel,
 } from './chords'
@@ -21,6 +23,25 @@ describe('parseChord', () => {
     const chord = parseChord('N.C.')
     expect(chord.raw).toBe('N.C.')
     expect(formatChord(chord)).toBe('N.C.')
+  })
+
+  it('strips spaces and normalizes quality aliases', () => {
+    expect(formatChord(parseChord('C add9'))).toBe('Cadd9')
+    expect(formatChord(parseChord('G / B'))).toBe('G/B')
+    expect(formatChord(parseChord('Gsus'))).toBe('Gsus4')
+    expect(formatChord(parseChord('Amin'))).toBe('Am')
+    expect(formatChord(parseChord('CM7'))).toBe('Cmaj7')
+    expect(formatChord(parseChord('Gmaj'))).toBe('G')
+  })
+})
+
+describe('normalizeQuality', () => {
+  it('maps aliases to canon', () => {
+    expect(normalizeQuality('sus')).toBe('sus4')
+    expect(normalizeQuality('min')).toBe('m')
+    expect(normalizeQuality('M7')).toBe('maj7')
+    expect(normalizeQuality('maj')).toBe('')
+    expect(stripChordSpaces('G / F#')).toBe('G/F#')
   })
 })
 

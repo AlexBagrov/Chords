@@ -87,7 +87,10 @@ const QUALITY_TO_SUFFIX: Record<string, string> = {
   '7': '7',
   sus2: 'sus2',
   sus4: 'sus4',
+  // после normalizeQuality('sus') → sus4; оставляем на случай ручного Chord
+  sus: 'sus4',
   dim: 'dim',
+  dim7: 'dim7',
   aug: 'aug',
   '6': '6',
   m6: 'm6',
@@ -95,6 +98,7 @@ const QUALITY_TO_SUFFIX: Record<string, string> = {
   m9: 'm9',
   '11': '11',
   '13': '13',
+  '7sus4': '7sus4',
 }
 
 function pitchName(root: string, accidental: '' | '#' | 'b'): string {

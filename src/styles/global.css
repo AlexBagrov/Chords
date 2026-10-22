@@ -51,6 +51,10 @@ a {
   padding: 1.25rem 1rem 3rem;
 }
 
+.app-main:has(.song-list-page) {
+  max-width: 56rem;
+}
+
 .song-page {
   max-width: 72rem;
   margin: 0 auto;
@@ -74,14 +78,148 @@ code {
   font-family: ui-monospace, Consolas, monospace;
 }
 
+.song-list-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.song-list-toolbar h1 {
+  margin: 0;
+}
+
+.song-sort {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  gap: 0;
+  border: 1px solid color-mix(in srgb, var(--fg) 14%, transparent);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.song-sort button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.85rem;
+  height: 1.85rem;
+  padding: 0;
+  border: 0;
+  border-right: 1px solid color-mix(in srgb, var(--fg) 14%, transparent);
+  background: transparent;
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 0;
+  cursor: pointer;
+}
+
+.song-sort button:last-child {
+  border-right: 0;
+}
+
+.song-sort button:hover {
+  background: color-mix(in srgb, var(--fg) 8%, transparent);
+  color: var(--fg);
+}
+
+.song-sort button.is-active {
+  background: color-mix(in srgb, var(--link) 16%, transparent);
+  color: var(--link);
+}
+
+.song-sort button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.song-sort button:disabled:hover {
+  background: transparent;
+  color: var(--muted);
+}
+
+.song-list-layout {
+  display: grid;
+  grid-template-columns: minmax(10rem, 14rem) minmax(0, 1fr);
+  gap: 1.5rem 2rem;
+  margin-top: 1rem;
+  align-items: start;
+}
+
+.artist-list-heading,
+.song-list-heading {
+  margin: 0 0 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+
+.artist-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.artist-list button {
+  display: block;
+  width: 100%;
+  padding: 0.45rem 0.6rem;
+  margin: 0;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.artist-list button:hover {
+  background: color-mix(in srgb, var(--fg) 8%, transparent);
+}
+
+.artist-list button.is-active {
+  background: color-mix(in srgb, var(--link) 18%, transparent);
+  color: var(--link);
+  font-weight: 600;
+}
+
+.song-list-panel .song-list {
+  margin-top: 0;
+}
+
 .song-list {
   list-style: none;
   padding: 0;
   margin: 1rem 0 0;
 }
 
+@media (max-width: 36rem) {
+  .song-list-layout {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .artist-list ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+
+  .artist-list button {
+    width: auto;
+  }
+}
+
 .song-list li {
   border-bottom: 1px solid color-mix(in srgb, var(--fg) 12%, transparent);
+}
+
+.song-list li.song-list-item--artist-break {
+  border-top: 2px solid color-mix(in srgb, var(--fg) 28%, transparent);
 }
 
 .song-list a {
@@ -91,6 +229,10 @@ code {
   padding: 0.85rem 0;
   text-decoration: none;
   color: inherit;
+}
+
+.song-list--single-artist a {
+  padding: 0.5rem 0;
 }
 
 .song-list-title {

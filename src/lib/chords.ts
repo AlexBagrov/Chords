@@ -63,6 +63,35 @@ const NOTE_TO_INDEX: Record<string, number> = {
 const CHORD_RE =
   /^([A-G])([#b]?)([^/]*)(?:\/([A-G])([#b]?))?$/
 
+/**
+ * Канон качества: одинаковые аккорды → одна запись.
+ * Слэш (бас) не трогаем — это отдельный аккорд.
+ */
+export function normalizeQuality(quality: string): string {
+  const q = quality.replace(/\s+/g, '')
+  switch (q) {
+    case 'maj':
+    case 'Maj':
+    case 'M':
+      return ''
+    case 'M7':
+      return 'maj7'
+    case 'min':
+      return 'm'
+    case 'min7':
+      return 'm7'
+    case 'sus':
+      return 'sus4'
+    default:
+      return q
+  }
+}
+
+/** Убрать пробелы в токене (`C add9`, `G / B` → `Cadd9`, `G/B`). */
+export function stripChordSpaces(token: string): string {
+  return token.replace(/\s+/g, '')
+}
+
 function noteName(
   index: number,
   preferFlats: boolean,
@@ -88,7 +117,8 @@ function pitchIndex(root: string, accidental: '' | '#' | 'b'): number | null {
 
 export function parseChord(token: string): Chord {
   const trimmed = token.trim()
-  const match = CHORD_RE.exec(trimmed)
+  const compact = stripChordSpaces(trimmed)
+  const match = CHORD_RE.exec(compact)
   if (!match) {
     return {
       root: '',
@@ -101,7 +131,7 @@ export function parseChord(token: string): Chord {
   const chord: Chord = {
     root: match[1],
     accidental: (match[2] || '') as '' | '#' | 'b',
-    quality: match[3] ?? '',
+    quality: normalizeQuality(match[3] ?? ''),
   }
 
   if (match[4]) {

@@ -11,6 +11,9 @@ describe('qualityToSuffix', () => {
     expect(qualityToSuffix('')).toBe('major')
     expect(qualityToSuffix('m')).toBe('minor')
     expect(qualityToSuffix('add9')).toBe('add9')
+    expect(qualityToSuffix('7sus4')).toBe('7sus4')
+    expect(qualityToSuffix('dim7')).toBe('dim7')
+    expect(qualityToSuffix('sus')).toBe('sus4')
   })
 })
 
@@ -61,5 +64,13 @@ describe('lookupChordDiagram', () => {
       const match = lookupChordDiagram(parseChord(token))
       expect(match, token).toBeTruthy()
     }
+  })
+
+  it('finds shapes after quality aliases / newly mapped suffixes', () => {
+    for (const token of ['Gsus', 'Gsus4', 'D7sus4', 'E7sus4', 'Ebdim7']) {
+      const match = lookupChordDiagram(parseChord(token))
+      expect(match, token).toBeTruthy()
+    }
+    expect(lookupChordDiagram(parseChord('Gsus'))!.suffix).toBe('sus4')
   })
 })
