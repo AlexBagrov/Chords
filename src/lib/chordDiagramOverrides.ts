@@ -6,6 +6,24 @@ import type { ChordPosition } from './chordDiagramLookup'
  * Слэш не упрощаем до обычного мажора/минора.
  */
 export const CHORD_DIAGRAM_OVERRIDES: Record<string, ChordPosition[]> = {
+  // —— open E7: chords-db ставит 020100 первым; распространённее E+мизинец ——
+  E7: [
+    {
+      // 022130 — как E, 7-я на 2-й струне
+      frets: [0, 2, 2, 1, 3, 0],
+      fingers: [0, 2, 3, 1, 4, 0],
+      baseFret: 1,
+      barres: [],
+    },
+    {
+      // 020100 — упрощённый двухпальцевый
+      frets: [0, 2, 0, 1, 0, 0],
+      fingers: [0, 2, 0, 1, 0, 0],
+      baseFret: 1,
+      barres: [],
+    },
+  ],
+
   // —— major/minor slash ——
   // Hammer to Fall: x06454 (E triad over open A)
   'E/A': [
@@ -119,6 +137,26 @@ export const CHORD_DIAGRAM_OVERRIDES: Record<string, ChordPosition[]> = {
     },
   ],
 
+  // —— major slash (нет в chords-db) ——
+  // x03331
+  'Bb/A': [
+    {
+      frets: [-1, 0, 3, 3, 3, 1],
+      fingers: [0, 0, 2, 3, 4, 1],
+      baseFret: 1,
+      barres: [],
+    },
+  ],
+  // 3x1343
+  'Eb/G': [
+    {
+      frets: [3, -1, 1, 3, 4, 3],
+      fingers: [2, 0, 1, 3, 4, 3],
+      baseFret: 1,
+      barres: [],
+    },
+  ],
+
   // —— power chords (5) ——
   A5: [
     {
@@ -163,6 +201,14 @@ export const CHORD_DIAGRAM_OVERRIDES: Record<string, ChordPosition[]> = {
   G5: [
     {
       frets: [3, 5, 5, -1, -1, -1],
+      fingers: [1, 3, 4, 0, 0, 0],
+      baseFret: 1,
+      barres: [],
+    },
+  ],
+  F5: [
+    {
+      frets: [1, 3, 3, -1, -1, -1],
       fingers: [1, 3, 4, 0, 0, 0],
       baseFret: 1,
       barres: [],

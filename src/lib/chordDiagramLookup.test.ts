@@ -76,6 +76,14 @@ describe('lookupChordDiagram', () => {
     expect(lookupChordDiagram(parseChord('Gsus'))!.suffix).toBe('sus4')
   })
 
+  it('prefers standard open E7 (022130) over chords-db 020100', () => {
+    const match = lookupChordDiagram(parseChord('E7'))
+    expect(match).toBeTruthy()
+    expect(match!.suffix).toBe('override')
+    expect(match!.positions[0].frets).toEqual([0, 2, 2, 1, 3, 0])
+    expect(match!.positions[1].frets).toEqual([0, 2, 0, 1, 0, 0])
+  })
+
   it('uses local overrides when chords-db has no shape', () => {
     const missingFromDb = [
       'E/A',

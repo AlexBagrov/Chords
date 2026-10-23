@@ -1,21 +1,13 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useLayoutEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router'
 import CapoBadge from '../components/CapoBadge'
-import { songs, type SongSummary } from '../lib/songCatalog'
-
-type SortMode = 'artist' | 'title'
-
-function compareSongs(a: SongSummary, b: SongSummary, mode: SortMode): number {
-  if (mode === 'title') {
-    const byTitle = a.title.localeCompare(b.title, 'ru')
-    if (byTitle !== 0) return byTitle
-    return a.artist.localeCompare(b.artist, 'ru')
-  }
-
-  const byArtist = a.artist.localeCompare(b.artist, 'ru')
-  if (byArtist !== 0) return byArtist
-  return a.title.localeCompare(b.title, 'ru')
-}
+import { songs } from '../lib/songCatalog'
+import { compareSongs, type SortMode } from '../lib/songListSort'
+import {
+  captureSongListScroll,
+  readSongListUiState,
+  writeSongListUiState,
+} from '../lib/songListUiState'
 
 function SortByArtistIcon() {
   return (
@@ -79,13 +71,19 @@ function SortDefaultIcon() {
 }
 
 export default function SongListPage() {
+  const initialUi = useMemo(() => readSongListUiState(), [])
   const artists = useMemo(() => {
     const unique = [...new Set(songs.map((song) => song.artist))]
     return unique.sort((a, b) => a.localeCompare(b, 'ru'))
   }, [])
 
-  const [selectedArtist, setSelectedArtist] = useState<string | null>(null)
-  const [sortMode, setSortMode] = useState<SortMode>('artist')
+  const [selectedArtist, setSelectedArtist] = useState<string | null>(() => {
+    if (initialUi.artist && artists.includes(initialUi.artist)) {
+      return initialUi.artist
+    }
+    return null
+  })
+  const [sortMode, setSortMode] = useState<SortMode>(initialUi.sort)
   const isDefaultView = selectedArtist === null && sortMode === 'artist'
 
   const visibleSongs = useMemo(() => {
@@ -96,9 +94,53 @@ export default function SongListPage() {
     return [...filtered].sort((a, b) => compareSongs(a, b, sortMode))
   }, [selectedArtist, sortMode])
 
+  useLayoutEffect(() => {
+    if (initialUi.scrollY > 0) {
+      window.scrollTo(0, initialUi.scrollY)
+    }
+  }, [initialUi.scrollY])
+
+  useEffect(() => {
+    writeSongListUiState({
+      artist: selectedArtist,
+      sort: sortMode,
+      scrollY: window.scrollY,
+    })
+  }, [selectedArtist, sortMode])
+
+  useEffect(() => {
+    let frame = 0
+    const onScroll = () => {
+      cancelAnimationFrame(frame)
+      frame = requestAnimationFrame(() => {
+        writeSongListUiState({
+          artist: selectedArtist,
+          sort: sortMode,
+          scrollY: window.scrollY,
+        })
+      })
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => {
+      cancelAnimationFrame(frame)
+      window.removeEventListener('scroll', onScroll)
+    }
+  }, [selectedArtist, sortMode])
+
+  function persistAndResetScroll(nextArtist: string | null, nextSort: SortMode) {
+    window.scrollTo(0, 0)
+    writeSongListUiState({
+      artist: nextArtist,
+      sort: nextSort,
+      scrollY: 0,
+    })
+  }
+
   function resetToDefault() {
     setSelectedArtist(null)
     setSortMode('artist')
+    persistAndResetScroll(null, 'artist')
   }
 
   return (
@@ -110,7 +152,10 @@ export default function SongListPage() {
             <button
               type="button"
               className={sortMode === 'artist' ? 'is-active' : undefined}
-              onClick={() => setSortMode('artist')}
+              onClick={() => {
+                setSortMode('artist')
+                persistAndResetScroll(selectedArtist, 'artist')
+              }}
               title="По исполнителю"
               aria-label="Сортировать по исполнителю"
               aria-pressed={sortMode === 'artist'}
@@ -120,7 +165,10 @@ export default function SongListPage() {
             <button
               type="button"
               className={sortMode === 'title' ? 'is-active' : undefined}
-              onClick={() => setSortMode('title')}
+              onClick={() => {
+                setSortMode('title')
+                persistAndResetScroll(selectedArtist, 'title')
+              }}
               title="По алфавиту"
               aria-label="Сортировать по алфавиту"
               aria-pressed={sortMode === 'title'}
@@ -150,7 +198,10 @@ export default function SongListPage() {
                 <button
                   type="button"
                   className={selectedArtist === null ? 'is-active' : undefined}
-                  onClick={() => setSelectedArtist(null)}
+                  onClick={() => {
+                    setSelectedArtist(null)
+                    persistAndResetScroll(null, sortMode)
+                  }}
                 >
                   Все
                 </button>
@@ -160,7 +211,10 @@ export default function SongListPage() {
                   <button
                     type="button"
                     className={selectedArtist === artist ? 'is-active' : undefined}
-                    onClick={() => setSelectedArtist(artist)}
+                    onClick={() => {
+                      setSelectedArtist(artist)
+                      persistAndResetScroll(artist, sortMode)
+                    }}
                   >
                     {artist}
                   </button>
@@ -194,7 +248,10 @@ export default function SongListPage() {
                       key={song.id}
                       className={artistBreak ? 'song-list-item--artist-break' : undefined}
                     >
-                      <Link to={`/songs/${song.id}`}>
+                      <Link
+                        to={`/songs/${song.id}`}
+                        onClick={() => captureSongListScroll(selectedArtist, sortMode)}
+                      >
                         <span className="song-list-title">
                           {song.title}
                           {song.capo ? (
