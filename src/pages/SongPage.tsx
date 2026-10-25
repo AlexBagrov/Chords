@@ -44,19 +44,21 @@ export default function SongPage() {
 
   return (
     <section className="song-page">
-      <p>
-        <Link to="/">← К списку</Link>
-      </p>
       <h1>{baseAst.meta.title}</h1>
       <p className="song-meta">{baseAst.meta.artist}</p>
 
-      <TransposeBar
-        steps={steps}
-        originalKey={originalKey}
-        currentKey={currentKey}
-        capo={baseAst.meta.capo}
-        onStepsChange={setSteps}
-      />
+      <div className="song-sticky-chrome">
+        <p className="song-back">
+          <Link to="/">← К списку</Link>
+        </p>
+        <TransposeBar
+          steps={steps}
+          originalKey={originalKey}
+          currentKey={currentKey}
+          capo={baseAst.meta.capo}
+          onStepsChange={setSteps}
+        />
+      </div>
 
       <SongView song={viewAst} />
     </section>
