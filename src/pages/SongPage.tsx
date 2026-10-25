@@ -1,19 +1,32 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState, type CSSProperties } from 'react'
 import { Link, useParams } from 'react-router'
+import FontSizeBar from '../components/FontSizeBar'
 import SongView from '../components/SongView'
 import TransposeBar from '../components/TransposeBar'
 import { transposeKeyLabel } from '../lib/chords'
 import { parseChordpro, transposeSong } from '../lib/chordproParse'
 import { getSongById } from '../lib/songCatalog'
+import {
+  clampSongFontSize,
+  readSongFontSize,
+  writeSongFontSize,
+} from '../lib/songFontSize'
 
 export default function SongPage() {
   const { songId } = useParams()
   const song = songId ? getSongById(songId) : undefined
   const [steps, setSteps] = useState(0)
+  const [fontSize, setFontSize] = useState(readSongFontSize)
 
   useEffect(() => {
     setSteps(0)
   }, [songId])
+
+  function handleFontSizeChange(next: number) {
+    const size = clampSongFontSize(next)
+    setFontSize(size)
+    writeSongFontSize(size)
+  }
 
   const baseAst = useMemo(
     () => (song ? parseChordpro(song.source) : null),
@@ -43,7 +56,10 @@ export default function SongPage() {
   const currentKey = transposeKeyLabel(originalKey, steps)
 
   return (
-    <section className="song-page">
+    <section
+      className="song-page"
+      style={{ '--song-font-size': `${fontSize}px` } as CSSProperties}
+    >
       <h1>{baseAst.meta.title}</h1>
       <p className="song-meta">{baseAst.meta.artist}</p>
 
@@ -51,13 +67,16 @@ export default function SongPage() {
         <p className="song-back">
           <Link to="/">← К списку</Link>
         </p>
-        <TransposeBar
-          steps={steps}
-          originalKey={originalKey}
-          currentKey={currentKey}
-          capo={baseAst.meta.capo}
-          onStepsChange={setSteps}
-        />
+        <div className="song-chrome-controls">
+          <TransposeBar
+            steps={steps}
+            originalKey={originalKey}
+            currentKey={currentKey}
+            capo={baseAst.meta.capo}
+            onStepsChange={setSteps}
+          />
+          <FontSizeBar size={fontSize} onSizeChange={handleFontSizeChange} />
+        </div>
       </div>
 
       <SongView song={viewAst} />
