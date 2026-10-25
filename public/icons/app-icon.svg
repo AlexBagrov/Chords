@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Chords ? D">
+  <rect width="512" height="512" rx="96" fill="#efebe6"/>
+
+  <!-- ??????? D ?????; ???? ???????? ?? ???? -->
+  <text
+    x="18"
+    y="318"
+    font-family="Georgia, 'Times New Roman', Times, serif"
+    font-size="300"
+    font-weight="700"
+    fill="#c4784a"
+  >D</text>
+
+  <!-- ????????? D (XX0232) ??????; ????? ?????? -->
+  <g transform="translate(196, 96)" fill="none" stroke="#1a1a1a" stroke-linecap="square">
+    <g
+      fill="#1a1a1a"
+      stroke="none"
+      font-family="Segoe UI, Arial, sans-serif"
+      font-size="26"
+      font-weight="700"
+      text-anchor="middle"
+    >
+      <text x="0" y="16">X</text>
+      <text x="40" y="16">X</text>
+      <text x="80" y="16">0</text>
+      <text x="120" y="16">2</text>
+      <text x="160" y="16">3</text>
+      <text x="200" y="16">2</text>
+    </g>
+
+    <line x1="0" y1="34" x2="200" y2="34" stroke-width="10"/>
+    <line x1="0" y1="90" x2="200" y2="90" stroke-width="3"/>
+    <line x1="0" y1="146" x2="200" y2="146" stroke-width="3"/>
+    <line x1="0" y1="202" x2="200" y2="202" stroke-width="3"/>
+    <line x1="0" y1="258" x2="200" y2="258" stroke-width="3"/>
+
+    <line x1="0" y1="34" x2="0" y2="258" stroke-width="3"/>
+    <line x1="40" y1="34" x2="40" y2="258" stroke-width="3"/>
+    <line x1="80" y1="34" x2="80" y2="258" stroke-width="3"/>
+    <line x1="120" y1="34" x2="120" y2="258" stroke-width="3"/>
+    <line x1="160" y1="34" x2="160" y2="258" stroke-width="3"/>
+    <line x1="200" y1="34" x2="200" y2="258" stroke-width="3"/>
+
+    <g fill="#1a1a1a" stroke="none">
+      <circle cx="120" cy="62" r="15"/>
+      <circle cx="160" cy="118" r="15"/>
+      <circle cx="200" cy="62" r="15"/>
+    </g>
+  </g>
+</svg>
