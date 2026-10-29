@@ -82,6 +82,13 @@ export function normalizeQuality(quality: string): string {
       return 'm7'
     case 'sus':
       return 'sus4'
+    case '7sus':
+      return '7sus4'
+    // Amsus2 ≡ Asus2 (нет терции)
+    case 'msus2':
+      return 'sus2'
+    case '7#5':
+      return 'aug7'
     default:
       return q
   }

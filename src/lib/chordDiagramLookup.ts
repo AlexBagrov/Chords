@@ -94,6 +94,9 @@ const QUALITY_TO_SUFFIX: Record<string, string> = {
   dim: 'dim',
   dim7: 'dim7',
   aug: 'aug',
+  aug7: 'aug7',
+  '7#5': 'aug7',
+  '7b5': '7b5',
   '6': '6',
   m6: 'm6',
   '9': '9',
@@ -101,6 +104,9 @@ const QUALITY_TO_SUFFIX: Record<string, string> = {
   '11': '11',
   '13': '13',
   '7sus4': '7sus4',
+  add11: 'add11',
+  // Emaug в файлах → quality maug; берём maj aug из db
+  maug: 'aug',
 }
 
 function pitchName(root: string, accidental: '' | '#' | 'b'): string {
