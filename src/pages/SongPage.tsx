@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router'
 import FontSizeBar from '../components/FontSizeBar'
 import SongView from '../components/SongView'
 import TransposeBar from '../components/TransposeBar'
+import VersionBar from '../components/VersionBar'
 import { transposeKeyLabel } from '../lib/chords'
 import { parseChordpro, transposeSong } from '../lib/chordproParse'
 import { getSongById } from '../lib/songCatalog'
@@ -11,10 +12,12 @@ import {
   readSongFontSize,
   writeSongFontSize,
 } from '../lib/songFontSize'
+import { getVersionGroupForSong } from '../lib/songVersions'
 
 export default function SongPage() {
   const { songId } = useParams()
   const song = songId ? getSongById(songId) : undefined
+  const versionGroup = songId ? getVersionGroupForSong(songId) : undefined
   const [steps, setSteps] = useState(0)
   const [fontSize, setFontSize] = useState(readSongFontSize)
 
@@ -77,6 +80,9 @@ export default function SongPage() {
           />
           <FontSizeBar size={fontSize} onSizeChange={handleFontSizeChange} />
         </div>
+        {versionGroup && songId ? (
+          <VersionBar group={versionGroup} currentId={songId} />
+        ) : null}
       </div>
 
       <SongView song={viewAst} />

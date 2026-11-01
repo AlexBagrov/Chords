@@ -1,4 +1,4 @@
-import type { Chord } from './chords'
+import { formatChord, type Chord } from './chords'
 import type { InlinePart } from './chordproParse'
 
 export type ChordLyricSegment = {
@@ -14,9 +14,21 @@ function isWhitespaceOnly(text: string): boolean {
 }
 
 /**
+ * Если под аккордом мало букв, следующий аккорд визуально слипается (Cadd9G).
+ * Нужен зазор: длина имени − длина текста + 1.
+ */
+function collisionPad(chord: Chord, lyric: string): number {
+  const nameLen = formatChord(chord).length
+  const lyricLen = lyric.length
+  if (lyricLen > nameLen) return 0
+  return nameLen - lyricLen + 1
+}
+
+/**
  * Собирает сегменты аккорд+текст для строки.
  * Пробелы между аккордами ([D] [G] [A]) и подряд идущие [D][G]
  * дают padAfter, чтобы в UI не слипалось в «DGA».
+ * Короткие слоги под длинным аккордом тоже разводятся.
  */
 export function buildChordLyricSegments(parts: InlinePart[]): ChordLyricSegment[] {
   const segments: ChordLyricSegment[] = []
@@ -51,6 +63,14 @@ export function buildChordLyricSegments(parts: InlinePart[]): ChordLyricSegment[
 
   if (pendingChord) {
     segments.push({ chord: pendingChord, lyric: '', padAfter: 0 })
+  }
+
+  for (let i = 0; i < segments.length - 1; i++) {
+    const seg = segments[i]
+    const next = segments[i + 1]
+    // Пустой lyric уже разведён выше (padAfter ≥ 1).
+    if (!seg.chord || !next.chord || seg.lyric.length === 0) continue
+    seg.padAfter = Math.max(seg.padAfter, collisionPad(seg.chord, seg.lyric))
   }
 
   return segments

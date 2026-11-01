@@ -89,6 +89,8 @@ export function normalizeQuality(quality: string): string {
       return 'sus2'
     case '7#5':
       return 'aug7'
+    case 'mb5':
+      return 'm7b5'
     default:
       return q
   }

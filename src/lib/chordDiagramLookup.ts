@@ -86,6 +86,8 @@ const QUALITY_TO_SUFFIX: Record<string, string> = {
   M7: 'maj7',
   m7: 'm7',
   m7b5: 'm7b5',
+  mb5: 'm7b5',
+  mmaj7: 'mmaj7',
   '7': '7',
   sus2: 'sus2',
   sus4: 'sus4',

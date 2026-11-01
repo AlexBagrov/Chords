@@ -1,4 +1,5 @@
 import { parseChordproMeta } from './chordproMeta'
+import { isSecondarySongVersion } from './songVersions'
 
 export type SongSummary = {
   id: string
@@ -20,8 +21,8 @@ function idFromPath(path: string): string {
   return file.replace(/\.chordpro$/i, '')
 }
 
-function loadSongs(): SongSummary[] {
-  const songs = Object.entries(songModules)
+function loadAllSongs(): SongSummary[] {
+  return Object.entries(songModules)
     .map(([path, source]) => {
       const id = idFromPath(path)
       const meta = parseChordproMeta(source, id)
@@ -36,16 +37,24 @@ function loadSongs(): SongSummary[] {
     })
     // Черновики: songs/_draft.chordpro (шаблон лежит в songs/templates/)
     .filter((song) => !song.id.startsWith('_'))
+}
 
-  return songs.sort((a, b) => {
+function sortSongs(list: SongSummary[]): SongSummary[] {
+  return [...list].sort((a, b) => {
     const byArtist = a.artist.localeCompare(b.artist, 'ru')
     if (byArtist !== 0) return byArtist
     return a.title.localeCompare(b.title, 'ru')
   })
 }
 
-export const songs: SongSummary[] = loadSongs()
+/** Все песни, включая скрытые вторичные версии (для открытия по URL). */
+export const allSongs: SongSummary[] = sortSongs(loadAllSongs())
+
+/** Список: без черновиков и без вторичных версий (кнопки версий — на странице). */
+export const songs: SongSummary[] = sortSongs(
+  allSongs.filter((song) => !isSecondarySongVersion(song.id)),
+)
 
 export function getSongById(id: string): SongSummary | undefined {
-  return songs.find((song) => song.id === id)
+  return allSongs.find((song) => song.id === id)
 }

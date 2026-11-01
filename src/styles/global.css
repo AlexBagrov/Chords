@@ -304,7 +304,8 @@ code {
 }
 
 .transpose-bar,
-.font-size-bar {
+.font-size-bar,
+.version-bar {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -315,6 +316,45 @@ code {
   border: 1px solid color-mix(in srgb, var(--fg) 12%, transparent);
   border-radius: 8px;
   backdrop-filter: blur(6px);
+}
+
+.version-bar {
+  flex: 1 1 100%;
+}
+
+.version-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 2.75rem;
+}
+
+.version-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  height: 2.75rem;
+  margin: 0;
+  padding: 0 0.95rem;
+  border: 1px solid color-mix(in srgb, var(--fg) 22%, transparent);
+  border-radius: 8px;
+  background: var(--header-bg);
+  color: var(--fg);
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.version-btn--active {
+  border-color: color-mix(in srgb, var(--fg) 45%, transparent);
+  background: color-mix(in srgb, var(--fg) 12%, var(--header-bg));
+  cursor: default;
 }
 
 .font-size-controls,

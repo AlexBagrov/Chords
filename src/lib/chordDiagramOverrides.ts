@@ -34,6 +34,96 @@ export const CHORD_DIAGRAM_OVERRIDES: Record<string, ChordPosition[]> = {
       barres: [],
     },
   ],
+  // x32000 — Em с басом C (≈ Cmaj7)
+  'Em/C': [
+    {
+      frets: [-1, 3, 2, 0, 0, 0],
+      fingers: [0, 3, 2, 0, 0, 0],
+      baseFret: 1,
+      barres: [],
+    },
+  ],
+  // x3x201 — Am7 с басом C
+  'Am7/C': [
+    {
+      frets: [-1, 3, -1, 2, 1, 0],
+      fingers: [0, 3, 0, 2, 1, 0],
+      baseFret: 1,
+      barres: [],
+    },
+  ],
+  // x02020 — A7 с басом E
+  'A7/E': [
+    {
+      frets: [0, 0, 2, 0, 2, 0],
+      fingers: [0, 0, 2, 0, 3, 0],
+      baseFret: 1,
+      barres: [],
+    },
+  ],
+  // x30231 — Dm с басом C
+  'Dm/C': [
+    {
+      frets: [-1, 3, 0, 2, 3, 1],
+      fingers: [0, 3, 0, 2, 4, 1],
+      baseFret: 1,
+      barres: [],
+    },
+  ],
+  // x20231 — Dm6 с басом B
+  'Dm6/B': [
+    {
+      frets: [-1, 2, 0, 2, 3, 1],
+      fingers: [0, 2, 0, 3, 4, 1],
+      baseFret: 1,
+      barres: [],
+    },
+  ],
+  // x1322x — A#m/C# (Bbm/Db)
+  'A#m/C#': [
+    {
+      frets: [-1, 1, 3, 3, 2, 1],
+      fingers: [0, 1, 3, 4, 2, 1],
+      baseFret: 1,
+      barres: [1],
+    },
+  ],
+  // x1212x — F#7/A#
+  'F#7/A#': [
+    {
+      frets: [-1, 1, 2, 1, 2, -1],
+      fingers: [0, 1, 3, 2, 4, 0],
+      baseFret: 1,
+      barres: [],
+    },
+  ],
+  // xx121x — F(b5)/G (в файлах как Fb5/G)
+  'Fb5/G': [
+    {
+      frets: [3, -1, 3, 4, 0, -1],
+      fingers: [1, 0, 2, 3, 0, 0],
+      baseFret: 1,
+      barres: [],
+    },
+  ],
+  // x6444x — B с басом D#
+  'B/D#': [
+    {
+      frets: [-1, 6, 4, 4, 4, -1],
+      fingers: [0, 3, 1, 1, 1, 0],
+      baseFret: 1,
+      barres: [4],
+    },
+  ],
+  // x44222 — F#m с басом C#
+  'F#m/C#': [
+    {
+      frets: [-1, 4, 4, 2, 2, 2],
+      fingers: [0, 3, 4, 1, 1, 1],
+      baseFret: 1,
+      barres: [2],
+    },
+  ],
   // x10033 — Gm с басом Bb
   'Gm/Bb': [
     {

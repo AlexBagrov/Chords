@@ -37,10 +37,22 @@ describe('buildChordLyricSegments', () => {
     ])
   })
 
-  it('does not pad chords that carry lyrics', () => {
+  it('does not pad when lyrics are longer than the chord name', () => {
     expect(summary(lineParts('[D]Two packs [G]of beer'))).toEqual([
       { chord: 'D', lyric: 'Two packs ', padAfter: 0 },
       { chord: 'G', lyric: 'of beer', padAfter: 0 },
+    ])
+  })
+
+  it('pads when short lyrics would merge chord names', () => {
+    expect(summary(lineParts('back [Cadd9]over [G]here'))).toEqual([
+      { chord: null, lyric: 'back ', padAfter: 0 },
+      { chord: 'Cadd9', lyric: 'over ', padAfter: 1 },
+      { chord: 'G', lyric: 'here', padAfter: 0 },
+    ])
+    expect(summary(lineParts('[A#]се[Gm]ди'))).toEqual([
+      { chord: 'A#', lyric: 'се', padAfter: 1 },
+      { chord: 'Gm', lyric: 'ди', padAfter: 0 },
     ])
   })
 })
