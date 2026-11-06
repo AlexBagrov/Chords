@@ -19,4 +19,17 @@ describe('packLyricColumns', () => {
     expect(pack.leftIndexes).toEqual([0])
     expect(pack.rightIndexes).toEqual([1])
   })
+
+  it('keeps reading order: short outro after spill stays on the right', () => {
+    // Verse/Bridge/Chorus/Verse влезают слева; Bridge2 уже нет;
+    // короткий Outro формально ещё влез бы слева — но должен уйти вправо.
+    const pack = packLyricColumns(
+      [80, 80, 80, 80, 80, 80, 40],
+      [200, 200, 200, 200, 200, 200, 200],
+      320,
+      400,
+    )
+    expect(pack.leftIndexes).toEqual([0, 1, 2, 3])
+    expect(pack.rightIndexes).toEqual([4, 5, 6])
+  })
 })

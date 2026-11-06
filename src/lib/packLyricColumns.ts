@@ -20,16 +20,22 @@ export function packLyricColumns(
   const leftIndexes: number[] = []
   const rightIndexes: number[] = []
   let leftHeight = 0
+  // После первого переноса всё остальное только вправо — иначе короткий
+  // хвост (outro) снова влезет слева и окажется «до» продолжения справа.
+  let spilledToRight = false
 
   for (let index = 0; index < stanzaHeights.length; index += 1) {
     const height = stanzaHeights[index] ?? 0
     const fitsLeft =
-      leftIndexes.length === 0 || leftHeight + height <= availableHeightPx + 0.5
+      !spilledToRight &&
+      (leftIndexes.length === 0 ||
+        leftHeight + height <= availableHeightPx + 0.5)
 
     if (fitsLeft) {
       leftIndexes.push(index)
       leftHeight += height
     } else {
+      spilledToRight = true
       rightIndexes.push(index)
     }
   }
