@@ -56,12 +56,25 @@ a {
 }
 
 .song-page {
-  max-width: 72rem;
-  margin: 0 auto;
+  max-width: none;
+  margin: 0;
 }
 
+/* ПК / широкий экран (ориентир 19:10): песня на почти всю ширину */
 .app-main:has(.song-page) {
-  max-width: 72rem;
+  max-width: min(100%, 120rem);
+  padding-left: clamp(1rem, 2vw, 1.75rem);
+  padding-right: clamp(1rem, 2vw, 1.75rem);
+}
+
+@media (min-width: 1100px) {
+  .app-main:has(.song-page) {
+    max-width: min(100%, 100vw - 1.5rem);
+  }
+
+  .song-chrome-controls {
+    width: 100%;
+  }
 }
 
 .song-page h1 {
@@ -439,24 +452,35 @@ code {
 
 
 .song-section {
-  margin: 1.4rem 0 0.65rem;
+  margin: 0.7rem 0 0.2rem;
   font-family: "Segoe UI", system-ui, sans-serif;
   font-size: 0.85rem;
   font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--muted);
+  line-height: 1.2;
 }
 
+/* Один визуальный пропуск между блоками, без «двойной дырки» */
 .song-empty-line {
-  height: 0.75rem;
+  height: 0.55rem;
+}
+
+.song-stanza .song-empty-line:last-child {
+  height: 0;
+}
+
+.song-empty-line + .song-section,
+.song-stanza + .song-stanza .song-section {
+  margin-top: 0.55rem;
 }
 
 .chord-lyric-line {
   display: flex;
   flex-wrap: wrap;
   align-items: flex-end;
-  margin: 0.15rem 0;
+  margin: 0.04rem 0;
 }
 
 .chord-lyric-seg {
@@ -464,13 +488,22 @@ code {
   flex-direction: column;
   align-items: flex-start;
   white-space: pre;
+  gap: 0;
 }
 
 .chord-name {
-  min-height: 1.15em;
+  min-height: 1em;
   font-weight: 700;
   color: var(--link);
-  line-height: 1.15;
+  line-height: 1.05;
+}
+
+.chord-lyric-line--chords-only {
+  margin: 0.02rem 0;
+}
+
+.chord-lyric-line--chords-only .chord-name {
+  min-height: 0;
 }
 
 .song-layout {
@@ -481,12 +514,92 @@ code {
   margin-top: 1rem;
 }
 
-.song-lyrics {
+.song-lyrics,
+.song-lyrics-board,
+.song-lyrics-measure {
   min-width: 0;
   font-family: ui-monospace, Consolas, monospace;
   font-size: var(--song-font-size, 16px);
-  line-height: 1.35;
+  line-height: 1.2;
+}
+
+.song-lyrics {
   overflow-x: auto;
+}
+
+.song-stanza:first-child .song-section {
+  margin-top: 0;
+}
+
+/* ПК: аккорды строкой сверху; текст — две колонки с шириной по длинной строке слева */
+@media (min-width: 1100px) {
+  .song-layout--desktop {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(14rem, 18rem);
+    gap: 1.75rem 2rem;
+    align-items: start;
+  }
+
+  .song-lyrics-measure {
+    position: absolute;
+    left: -10000px;
+    top: 0;
+    visibility: hidden;
+    pointer-events: none;
+    width: max-content;
+    max-width: 45vw;
+  }
+
+  .song-lyrics-board {
+    width: 100%;
+    max-height: calc(100dvh - 13.5rem);
+    overflow: auto;
+  }
+
+  .song-lyrics-columns {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: var(--song-col-gap, 2.5rem);
+    width: 100%;
+  }
+
+  /* Одна колонка — по центру зоны текста */
+  .song-lyrics-columns:not(:has(.song-lyrics-col--right)) {
+    justify-content: center;
+  }
+
+  .song-lyrics-col {
+    text-align: left;
+    min-width: 0;
+  }
+
+  .song-lyrics-col--left {
+    flex: 0 0 var(--song-left-col-width, auto);
+    width: var(--song-left-col-width, auto);
+    max-width: 45vw;
+  }
+
+  .song-lyrics-col--right {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .song-lyrics-col .chord-lyric-line,
+  .song-lyrics-col .lyric-line {
+    max-width: 45vw;
+  }
+
+  .song-layout--desktop .chord-diagram-panel {
+    position: sticky;
+    top: 0.5rem;
+    max-height: calc(100dvh - 8rem);
+    overflow: auto;
+  }
+
+  .song-layout--desktop .chord-diagram-grid {
+    grid-template-columns: repeat(auto-fill, minmax(5.75rem, 1fr));
+  }
 }
 
 .chord-diagram-panel {
@@ -637,8 +750,9 @@ code {
 .lyric-text,
 .lyric-line {
   white-space: pre-wrap;
+  line-height: 1.2;
 }
 
 .lyric-only {
-  margin: 0.15rem 0;
+  margin: 0.04rem 0;
 }

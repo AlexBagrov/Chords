@@ -7,6 +7,7 @@ import ChordDiagram from './ChordDiagram'
 
 type ChordDiagramPanelProps = {
   song: SongAst
+  variant?: 'sidebar'
 }
 
 export default function ChordDiagramPanel({ song }: ChordDiagramPanelProps) {

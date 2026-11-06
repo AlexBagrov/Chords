@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { formatChord } from './chords'
 import { parseChordpro } from './chordproParse'
-import { collectUniqueChords } from './songChords'
+import { collectChordsByFrequency, collectUniqueChords } from './songChords'
 
 describe('collectUniqueChords', () => {
   it('keeps first-seen order', () => {
@@ -20,6 +20,20 @@ describe('collectUniqueChords', () => {
     expect(collectUniqueChords(ast, { diagramsOnly: true }).map(formatChord)).toEqual([
       'G',
       'D#',
+    ])
+  })
+})
+
+describe('collectChordsByFrequency', () => {
+  it('orders by frequency then first appearance', () => {
+    const ast = parseChordpro(`{title: T}
+{artist: A}
+[G]a [D]b [G]c [Em]d [D]e [G]f
+`)
+    expect(collectChordsByFrequency(ast).map(formatChord)).toEqual([
+      'G',
+      'D',
+      'Em',
     ])
   })
 })
