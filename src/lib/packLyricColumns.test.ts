@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { packLyricColumns } from './packLyricColumns'
+import { getBoardAvailableHeightPx, packLyricColumns } from './packLyricColumns'
 
 describe('packLyricColumns', () => {
   it('keeps stanzas in first column while they fit by height', () => {
@@ -57,5 +57,44 @@ describe('packLyricColumns', () => {
       maxColumns: 3,
     })
     expect(pack.columns.length).toBeLessThanOrEqual(2)
+  })
+
+  it('does not overfill the first column past available height', () => {
+    // Как на скрине: много куплетов, во второй колонке ещё есть место.
+    const heights = [120, 120, 120, 120, 120, 120, 80, 80, 80]
+    const widths = heights.map(() => 220)
+    const pack = packLyricColumns(heights, widths, 400, 400, {
+      availableWidthPx: 1000,
+      maxColumns: 3,
+    })
+    const leftHeight = pack.columns[0]!.reduce(
+      (sum, index) => sum + heights[index]!,
+      0,
+    )
+    expect(leftHeight).toBeLessThanOrEqual(400)
+    expect(pack.columns.length).toBeGreaterThan(1)
+  })
+})
+
+describe('getBoardAvailableHeightPx', () => {
+  it('caps by CSS max-height when it is smaller than viewport room', () => {
+    const board = {
+      getBoundingClientRect: () => ({ top: 100 }),
+    } as HTMLElement
+
+    const originalInnerHeight = window.innerHeight
+    Object.defineProperty(window, 'innerHeight', { value: 1000, configurable: true })
+
+    const originalGetComputedStyle = window.getComputedStyle
+    window.getComputedStyle = (() =>
+      ({ maxHeight: '500px' }) as CSSStyleDeclaration) as typeof getComputedStyle
+
+    expect(getBoardAvailableHeightPx(board)).toBe(Math.floor(500 * 0.97))
+
+    window.getComputedStyle = originalGetComputedStyle
+    Object.defineProperty(window, 'innerHeight', {
+      value: originalInnerHeight,
+      configurable: true,
+    })
   })
 })

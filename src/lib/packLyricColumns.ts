@@ -112,4 +112,24 @@ export function maxLineWidthBudgetPx(
   return Math.max(MIN_COL_WIDTH_PX, Math.min(byViewport, byBoard))
 }
 
+/**
+ * Реальная высота области текста: минимум из «до низа окна» и CSS max-height.
+ * Иначе раскладка думает, что места больше, чем видно — и появляется прокрутка
+ * при пустом втором столбце.
+ */
+export function getBoardAvailableHeightPx(board: HTMLElement): number {
+  const topRoom = window.innerHeight - board.getBoundingClientRect().top - 8
+  const maxHeightRaw = getComputedStyle(board).maxHeight
+  let maxHeightPx = topRoom
+  if (maxHeightRaw && maxHeightRaw !== 'none') {
+    const parsed = parseFloat(maxHeightRaw)
+    if (Number.isFinite(parsed)) {
+      maxHeightPx = parsed
+    }
+  }
+
+  // Небольшой запас на округления / субпиксели
+  return Math.max(120, Math.floor(Math.min(topRoom, maxHeightPx) * 0.97))
+}
+
 export { COLUMN_GAP_PX, MIN_COL_WIDTH_PX }

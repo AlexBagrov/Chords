@@ -4,6 +4,7 @@ import { buildChordLyricSegments } from '../lib/chordLyricSegments'
 import type { InlinePart, SongAst, SongBlock } from '../lib/chordproParse'
 import {
   COLUMN_GAP_PX,
+  getBoardAvailableHeightPx,
   maxLineWidthBudgetPx,
   packLyricColumns,
   type LyricColumnPack,
@@ -82,16 +83,30 @@ function measureStanzaMetrics(
   maxLineWidthPx: number,
 ): { heights: number[]; maxLineWidths: number[] } {
   const nodes = [...root.querySelectorAll<HTMLElement>(':scope > .song-stanza')]
+  const previousStyles = nodes.map((node) => ({
+    maxWidth: node.style.maxWidth,
+    width: node.style.width,
+  }))
+
+  for (const node of nodes) {
+    node.style.maxWidth = `${maxLineWidthPx}px`
+    node.style.width = 'max-content'
+  }
+
+  // reflow, чтобы offsetTop учёл общие ширины и схлопнутые margin между куплетами
+  void root.offsetHeight
+
   const heights: number[] = []
   const maxLineWidths: number[] = []
 
-  for (const node of nodes) {
-    const previousMaxWidth = node.style.maxWidth
-    const previousWidth = node.style.width
-    node.style.maxWidth = `${maxLineWidthPx}px`
-    node.style.width = 'max-content'
-
-    heights.push(node.getBoundingClientRect().height)
+  for (let index = 0; index < nodes.length; index += 1) {
+    const node = nodes[index]!
+    const top = node.offsetTop
+    const nextTop =
+      index + 1 < nodes.length
+        ? nodes[index + 1]!.offsetTop
+        : top + node.offsetHeight
+    heights.push(Math.max(0, nextTop - top))
 
     let lineWidth = 0
     node
@@ -102,10 +117,12 @@ function measureStanzaMetrics(
         lineWidth = Math.max(lineWidth, line.scrollWidth)
       })
     maxLineWidths.push(lineWidth)
-
-    node.style.maxWidth = previousMaxWidth
-    node.style.width = previousWidth
   }
+
+  nodes.forEach((node, index) => {
+    node.style.maxWidth = previousStyles[index]!.maxWidth
+    node.style.width = previousStyles[index]!.width
+  })
 
   return { heights, maxLineWidths }
 }
@@ -120,6 +137,9 @@ export default function SongView({ song }: SongViewProps) {
   useLayoutEffect(() => {
     if (!isDesktop) {
       setPack(null)
+      if (boardRef.current) {
+        boardRef.current.style.height = ''
+      }
       return
     }
 
@@ -128,12 +148,13 @@ export default function SongView({ song }: SongViewProps) {
     if (!measureRoot || !board) return
 
     const update = () => {
+      board.style.height = ''
       const availableWidthPx = board.clientWidth
-      const availableHeightPx = Math.max(
-        120,
-        window.innerHeight - board.getBoundingClientRect().top - 12,
-      )
-      // Сначала оцениваем бюджет строки под 3 колонки — так высоты ближе к факту
+      const availableHeightPx = getBoardAvailableHeightPx(board)
+      // Фиксируем высоту доски = бюджет раскладки, чтобы CSS max-height
+      // и pack не расходились (иначе 1-й столбец «переливается» в скролл).
+      board.style.height = `${availableHeightPx}px`
+
       const maxLineWidthPx = maxLineWidthBudgetPx(
         window.innerWidth,
         3,
