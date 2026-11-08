@@ -1,4 +1,4 @@
-import { useLayoutEffect, useMemo, useRef, useState } from 'react'
+import { useLayoutEffect, useMemo, useRef, useState, type CSSProperties } from 'react'
 import { formatChord } from '../lib/chords'
 import { buildChordLyricSegments } from '../lib/chordLyricSegments'
 import type { InlinePart, SongAst, SongBlock } from '../lib/chordproParse'
@@ -128,10 +128,16 @@ export default function SongView({ song }: SongViewProps) {
     if (!measureRoot || !board) return
 
     const update = () => {
-      const maxLineWidthPx = maxLineWidthBudgetPx()
+      const availableWidthPx = board.clientWidth
       const availableHeightPx = Math.max(
         120,
         window.innerHeight - board.getBoundingClientRect().top - 12,
+      )
+      // Сначала оцениваем бюджет строки под 3 колонки — так высоты ближе к факту
+      const maxLineWidthPx = maxLineWidthBudgetPx(
+        window.innerWidth,
+        3,
+        availableWidthPx,
       )
       const { heights, maxLineWidths } = measureStanzaMetrics(
         measureRoot,
@@ -143,6 +149,7 @@ export default function SongView({ song }: SongViewProps) {
           maxLineWidths,
           availableHeightPx,
           maxLineWidthPx,
+          { maxColumns: 3, availableWidthPx },
         ),
       )
     }
@@ -175,16 +182,11 @@ export default function SongView({ song }: SongViewProps) {
     )
   }
 
-  const leftStanzas = pack
-    ? pack.leftIndexes.map((index) => stanzas[index]!)
-    : stanzas
-  const rightStanzas = pack
-    ? pack.rightIndexes.map((index) => stanzas[index]!)
-    : []
+  const packedColumns = pack?.columns ?? [stanzas.map((_, index) => index)]
+  const columnWidths = pack?.columnWidthsPx
 
   return (
     <div className="song-layout song-layout--desktop">
-      {/* Скрытый стенд для замеров куплетов */}
       <div
         className="song-lyrics-measure"
         ref={measureRef}
@@ -197,28 +199,46 @@ export default function SongView({ song }: SongViewProps) {
 
       <div className="song-lyrics-board" ref={boardRef}>
         <div
-          className="song-lyrics-columns"
+          className={
+            packedColumns.length === 1
+              ? 'song-lyrics-columns song-lyrics-columns--single'
+              : 'song-lyrics-columns'
+          }
           style={
-            pack
-              ? {
-                  ['--song-left-col-width' as string]: `${pack.leftWidthPx}px`,
-                  ['--song-col-gap' as string]: `${COLUMN_GAP_PX}px`,
-                }
-              : undefined
+            {
+              ['--song-col-gap' as string]: `${COLUMN_GAP_PX}px`,
+              ['--song-col-count' as string]: String(packedColumns.length),
+            } as CSSProperties
           }
         >
-          <div className="song-lyrics-col song-lyrics-col--left">
-            {leftStanzas.map((stanza, index) => (
-              <StanzaView blocks={stanza} key={`L-${index}`} />
-            ))}
-          </div>
-          {rightStanzas.length > 0 ? (
-            <div className="song-lyrics-col song-lyrics-col--right">
-              {rightStanzas.map((stanza, index) => (
-                <StanzaView blocks={stanza} key={`R-${index}`} />
-              ))}
-            </div>
-          ) : null}
+          {packedColumns.map((indexes, colIndex) => {
+            const widthPx = columnWidths?.[colIndex] ?? 0
+            const isLast = colIndex === packedColumns.length - 1
+            const isFlex = isLast && packedColumns.length > 1
+
+            return (
+              <div
+                className={
+                  isFlex
+                    ? 'song-lyrics-col song-lyrics-col--flex'
+                    : 'song-lyrics-col song-lyrics-col--fixed'
+                }
+                key={colIndex}
+                style={
+                  !isFlex && widthPx > 0
+                    ? { flexBasis: widthPx, width: widthPx, maxWidth: widthPx }
+                    : undefined
+                }
+              >
+                {indexes.map((stanzaIndex) => (
+                  <StanzaView
+                    blocks={stanzas[stanzaIndex]!}
+                    key={`${colIndex}-${stanzaIndex}`}
+                  />
+                ))}
+              </div>
+            )
+          })}
         </div>
       </div>
 

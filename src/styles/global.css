@@ -564,8 +564,7 @@ code {
     width: 100%;
   }
 
-  /* Одна колонка — по центру зоны текста */
-  .song-lyrics-columns:not(:has(.song-lyrics-col--right)) {
+  .song-lyrics-columns--single {
     justify-content: center;
   }
 
@@ -574,20 +573,18 @@ code {
     min-width: 0;
   }
 
-  .song-lyrics-col--left {
-    flex: 0 0 var(--song-left-col-width, auto);
-    width: var(--song-left-col-width, auto);
-    max-width: 45vw;
+  .song-lyrics-col--fixed {
+    flex: 0 0 auto;
   }
 
-  .song-lyrics-col--right {
+  .song-lyrics-col--flex {
     flex: 1 1 auto;
     min-width: 0;
   }
 
   .song-lyrics-col .chord-lyric-line,
   .song-lyrics-col .lyric-line {
-    max-width: 45vw;
+    max-width: min(45vw, 100%);
   }
 
   .song-layout--desktop .chord-diagram-panel {
